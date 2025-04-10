@@ -1,14 +1,17 @@
 package com.example.leapkart.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.leapkart.entity.Enum.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Date;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,9 +20,11 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "customer_details")
+@Builder
 public class Customer {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
     @Min(3)
@@ -29,4 +34,14 @@ public class Customer {
     String email;
 
     int age;
+
+    @CreationTimestamp
+    Date createdAt;
+
+    @Enumerated(EnumType.STRING)
+    Gender gender;
+
+    @OneToOne(mappedBy= "customer", cascade=CascadeType.ALL)
+    @JsonIgnore
+    Address address;
 }
