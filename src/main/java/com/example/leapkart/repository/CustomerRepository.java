@@ -24,8 +24,4 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     List<Customer> findByGenderAndAgeGreaterThanByQuery(Gender g,int a);
 
 
-
-
-
-
 }

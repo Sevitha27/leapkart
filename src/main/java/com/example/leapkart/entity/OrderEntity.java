@@ -39,4 +39,8 @@ public class OrderEntity {
 
     @ManyToMany(mappedBy = "orders", cascade=CascadeType.ALL)
     List<Product> products;
+
+    @ManyToOne
+    @JoinColumn
+    Customer customer;
 }

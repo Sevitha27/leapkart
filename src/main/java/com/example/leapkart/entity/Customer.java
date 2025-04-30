@@ -5,12 +5,13 @@ import com.example.leapkart.entity.Enum.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -44,4 +45,7 @@ public class Customer {
     @OneToOne(mappedBy= "customer", cascade=CascadeType.ALL)
     @JsonIgnore
     Address address;
+
+    @OneToMany(mappedBy = "customer", cascade= CascadeType.ALL)
+    List<OrderEntity> orders=new ArrayList<>();
 }
